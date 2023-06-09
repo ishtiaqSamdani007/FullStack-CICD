@@ -61,6 +61,16 @@ jobs:
             context: ./counter-app
             push: true
             tags: ghcr.io/${{ env.GITHUB_USER }}/react-package:${{ github.sha }}
+      - name: Deploy to EC2 from github packages
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.AWS_PUBLIC_IP}}
+            username: ${{ secrets.AWS_USER }}
+            key: ${{ secrets.AWS_PRIVATE_KEY }}
+            script: |
+                docker login ghcr.io -u ${{ env.GITHUB_USER }} -p ${{ secrets.GIT_TOKEN }}
+                docker pull ghcr.io/${{ env.GITHUB_USER }}/react-package:${{ github.sha }}
+                
 
             
         
