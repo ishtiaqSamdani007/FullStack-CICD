@@ -1,8 +1,8 @@
 name: build react app image and push to github packages
 on:
   push:
-    branches:
-      - main  
+    paths:
+      - 'counter-app/**'
   workflow_dispatch:
 env:
     GITHUB_USER: ishtiaqsamdani007
@@ -60,7 +60,7 @@ jobs:
         with:
             context: ./counter-app
             push: true
-            tags: ghcr.io/${{ env.GITHUB_USER }}/react-package:latest
+            tags: ghcr.io/${{ env.GITHUB_USER }}/react-package:{{ github.sha }}
 
             
         
