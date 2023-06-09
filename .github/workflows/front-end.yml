@@ -58,7 +58,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push image to GitHub Packages
-        run: docker push ghcr.io/username/counter-app:latest
+        run: docker push ghcr.io/${{env.GITHUB_USER}}/counter-app:latest
 
 
             
