@@ -34,7 +34,9 @@ jobs:
             npm install
         
       - name: ls
-        run: ls -la
+        run: |
+            cd counter-app
+            ls -la
       - name: Build application
         run: |
             cd counter-app
