@@ -9,6 +9,8 @@ body{
   justify-content: center;
   align-items: center;
   height: 100dvh;
+  height: 100vh;
+
 }
 .counter{
   display: flex;
