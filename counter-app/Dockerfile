@@ -1,20 +1,7 @@
-#use official image of nodejs
-FROM node:14-alpine
+FROM nginx:1.21-alpine
 
-#set workdirectory
-WORKDIR /react-app
+COPY build /usr/share/nginx/html
 
-#copy packaage.json to files to container
-COPY package*.json ./
+EXPOSE 80
 
-#install dependencies
-RUN npm i 
-
-#copy the rest files
-COPY . .
-
-#expose the port
-EXPOSE 3000
-
-#run the application
-CMD ["npm","start"]
+CMD ["nginx", "-g", "daemon off;"]
