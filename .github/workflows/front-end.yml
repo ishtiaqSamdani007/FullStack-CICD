@@ -23,6 +23,8 @@ jobs:
           node-version: 14
         # cacahe node_modules to speed up build
         
+      - name: ls
+        run: ls -la
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
