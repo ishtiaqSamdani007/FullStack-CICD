@@ -39,4 +39,4 @@ jobs:
         with:
             context: ./spring-boot-assignment
             push: true
-            tags: ghcr.io/${{ env.GITHUB_USER }}/spring-boot:{{ github.sha }}
+            tags: ghcr.io/${{ env.GITHUB_USER }}/spring-boot:${{ github.sha }}
