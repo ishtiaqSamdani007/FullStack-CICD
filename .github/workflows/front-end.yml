@@ -34,11 +34,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
             npm install
-        
-      - name: ls
-        run: |
-            cd counter-app
-            ls -la
+            
       - name: Build application
         run: |
             npm run build
