@@ -34,7 +34,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
             npm install
-            
+
       - name: Build application
         run: |
             npm run build
@@ -54,7 +54,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-            context: .
+            context: ./counter-app
             push: true
             tags: ghcr.io/${{ env.GITHUB_USER }}/react-package:${{ github.sha }}
       - name: Deploy to EC2 from github packages
