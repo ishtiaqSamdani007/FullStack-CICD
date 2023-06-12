@@ -9,6 +9,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: counter-app
 
     steps:
       - name: Checkout code
@@ -24,13 +27,12 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
-          path: counter-app/node_modules
+          path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-            cd counter-app
             npm install
         
       - name: ls
@@ -39,12 +41,10 @@ jobs:
             ls -la
       - name: Build application
         run: |
-            cd counter-app
             npm run build
 
       - name: run tests
         run: |
-            cd counter-app
             npm run test
 
               
@@ -58,7 +58,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
-            context: ./counter-app
+            context: .
             push: true
             tags: ghcr.io/${{ env.GITHUB_USER }}/react-package:${{ github.sha }}
       - name: Deploy to EC2 from github packages
@@ -70,7 +70,7 @@ jobs:
             script: |
                 docker login ghcr.io -u ${{ env.GITHUB_USER }} -p ${{ secrets.GIT_TOKEN }}
                 docker pull ghcr.io/${{ env.GITHUB_USER }}/react-package:${{ github.sha }}
-                
+                docker logout ghcr.io
 
             
         
